@@ -70,7 +70,6 @@ function get_array(&$array, $count_array, $count_letter)
 	// Переиндексация:
 	 $my_array = array_values($my_array);
 
-
 	// Заполним sort массив
 	foreach($my_array as $val) {
 		$my_array_sort[] = $val;
@@ -90,9 +89,7 @@ function get_array(&$array, $count_array, $count_letter)
 
 	
 	$comment_sort = $is_sort ? "отсортирован по возрастанию!" : " не отсортирован!";
-
 	$comment = $comment . $comment_sort;
-
 	$print_result = print_r($my_array, true);
 	$array_print  = print_r($array, true);
 
@@ -103,9 +100,114 @@ function get_array(&$array, $count_array, $count_letter)
 	);
  }
 
-// if ($task == 1) { 
-// 	require_once 'task1.php';
-// }
+ function task3($array, $my_array)
+ {
+ 	$comment = "";
+
+ 	//Считаем слова
+	foreach($array as $val) {
+		$my_array[$val] = $my_array[$val] + 1;
+	}
+
+	// Заполним 3-й массив
+	foreach($array as $val) {
+		$my_array_sort[] = $val;
+		
+	}
+
+	for($i=0; $i < count($array); $i++) {
+
+	 	if ($my_array[$my_array_sort[$i]] > 1) {	 		
+	 		unset($my_array_sort[$i]);	 
+	 	}
+	 }
+
+	 // Переиндексация:
+	 $my_array_sort = array_values($my_array_sort);
+
+	$print_result 	= print_r($my_array_sort, true);
+	$array_print 	= print_r($array, true);
+
+
+	return array(
+		'print_result' => $print_result,
+		'array_print' => $array_print,
+		'comment' => $comment
+	);
+ }
+
+ function task4($array, $my_array)
+ {
+ 	$min_el = $array[0];
+ 	$max_el = $array[0];
+
+ 	
+	foreach($array as $val) {
+
+		$min_el = ($val < $min_el) ? $val : $min_el;
+		$max_el = ($val > $max_el) ? $val : $max_el;
+		
+	}
+	$my_array[] = $min_el;
+	$my_array[] = $max_el;
+
+	$comment = "Min= " . $min_el . " Max= ". $max_el;
+
+	$print_result 	= print_r($my_array, true);
+	$array_print 	= print_r($array, true);
+
+	return array(
+		'print_result' => $print_result,
+		'array_print' => $array_print,
+		'comment' => $comment
+	);
+ }
+
+ function task5()
+ {
+ 	$comment = "";
+
+ 	$my_array2 = [];
+
+ 	$array = [
+	    "color" => "green",
+	    "bar" 	=> "foo",
+	    "width" => "100",
+	    "left" 	=> "25",
+	    "right" => "10",
+	    "top" 	=> "3",
+	];
+
+	$my_array = [
+	    "color"  => "green",    
+	    "bottom" => "30",
+	    "left" 	 => "25",
+	    "right"  => "10",
+	    "top" 	 => "3",
+	];
+
+	foreach ($array as $key => $value) {
+
+	 	if(isset($my_array[$key])) {
+	 		$my_array2[$key] = $value;
+	 	}
+	}
+	
+	$comment = "Общих элементов: " . count($my_array2);
+
+	$print_result = print_r($my_array, true);
+	$print_result2 = print_r($my_array2, true);
+	$array_print  = print_r($array, true);
+
+	return array(
+		'print_result' => $print_result,
+		'print_result2' => $print_result2,
+		'array_print' => $array_print,
+		'comment' => $comment
+	);
+ }
+
+
 
 //Получаем переменные
 $array = [];
@@ -159,11 +261,6 @@ if (!count($array) || $auto_word) {
 }
 
 
-
-
-
-
-
 switch ($task) {
     case 1:
         $result = task1($array, $my_array);
@@ -172,7 +269,13 @@ switch ($task) {
          $result = task2($array, $my_array);
         break;
     case 3:
-        echo "i равно 2";
+        $result = task3($array, $my_array);
+        break;
+    case 4:
+        $result = task4($array, $my_array);
+        break;
+    case 5:
+        $result = task5();
         break;
 }
 

@@ -63,7 +63,7 @@ $comment = ($is_sort) ? "отсортирован по возрастанию!" 
 								<!--<option disabled>Валюта</option> -->
 								<option selected value = "1">Пошук повторяющиїхся слів в масиві довжини n і виведення кількість їх повторень на екран</option>
 								<option value = "2">Видалити з масиву довжини n одне значення і визначити чи буде він відсортованим по зрослтанням</option>
-								<option value = "3">Видалити з асива слова які повторяютсья більше n раз</option>
+								<option value = "3">Видалити з масива слова які повторяютсья більше n раз</option>
 								<option value = "4">Пошук макс і мін значення в мпасиві довжини n</option>
 								<option value = "5">З двух масивів сформувати третій масив, який міститиме значення(ключі) які є в обох масивах</option>	
 							</select>
@@ -105,14 +105,16 @@ $comment = ($is_sort) ? "отсортирован по возрастанию!" 
 
 					</form>
 					
+					<div id="comment"></div>
+					<br>
 					<div id="result3"></div>
 					<br>
-					<br>
+				
 					<div id="result"></div>
-					<br>
-					<div id="comment"></div>
+					
 					<div id="result2"></div>
 					<br>
+					<div id="result4"></div>
 					
 				</div>
 			</div>
@@ -166,7 +168,7 @@ $comment = ($is_sort) ? "отсортирован по возрастанию!" 
 				$('#result').html(''); 
 				$('#result2').html(''); 
 				$('#result3').html(''); 
-
+				$('#result4').html(''); 
 			})
 		});
 
@@ -213,9 +215,13 @@ $comment = ($is_sort) ? "отсортирован по возрастанию!" 
 					success: function(data) {
 						// $('#course-curr').val(data.kurs);
  
-						$('#result2').html('<b>Массив с результатом: </b> <pre>' + data.print_result + '</pre>');
+						$('#result2').html('<b>Дополнительный массив: </b> <pre>' + data.print_result + '</pre>');
 						$('#comment').html(' ' + data.comment);
 						$('#result3').html('<b>Массив: </b> <pre>' + data.array_print + '</pre>');
+						
+						if (data.print_result2)
+						$('#result4').html('<b>Массив2: </b> <pre>' + data.print_result2 + '</pre>');
+					
 					}
 				});
 

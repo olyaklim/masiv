@@ -10,39 +10,63 @@
 <html>
 <body>
 
+
+
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-md-7">
+			<div class="col-xs-12 col-md-10">
 				<div class="converter-wrap">
 
 					<h1>Изучение массивов</h1>					
 
-					<h2>Пошук повторяющиїхся слів в масиві довжини n і виведення кількість їх повторень на екран</h2>
-					<form id="form" method="post" class="form-inline">
+					<form id="form" class="form-inline">
 
 						<div class="form-group">
-							<label class="control-label" for="count_array">Длинна массива:</label>
-							<input id="count_array" class="form-control" type="number" name="count_array" required  placeholder="Длинна"  value="5" min="1" max="100" step="1">
+
+							<label class="control-label" for="task">Задание:</label>
+							<select id="task" class="form-control" required size = "1" name = "task">
+								<!--<option disabled>Валюта</option> -->
+								<option selected value = "1">Пошук повторяющиїхся слів в масиві довжини n і виведення кількість їх повторень на екран</option>
+								<option value = "2">Видалити з масиву довжини n одне значення і визначити чи буде він відсортованим по зрослтанням</option>
+								<option value = "3">Видалити з асива слова які повторяютсья більше n раз</option>
+								<option value = "4">Пошук макс і мін значення в мпасиві довжини n</option>
+								<option value = "5">З двух масивів сформувати третій масив, який міститиме значення(ключі) які є в обох масивах</option>	
+							</select>
+						</div>	
+						<br><br>
+						<div class="form-group mas-group">
+							<span id="mas">word1,word2,word3,word3,word1,word1</span>
+							<a id="btn-mas" class="btn btn-primary">Перезаполнить массив</a>
 						</div>
 
-						<!-- <div class="form-group">
+					
+						<div class="option-group">
+							<div class="checkbox">
+								<label><input id="auto-word" type="checkbox"> Автозаполнение массива</label>
+							</div>	
 
-							<label class="control-label" for="name_val">Валюта:</label>
-							<select id="name_val" class="form-control" required size = "1" name = "name_val">
-								<option disabled>Валюта</option>
-								<option selected value = "USD">USD</option>
-								<option value = "EUR">EUR</option>
-								<option value = "RUR">RUR</option>
-							</select>
-						</div>	 -->					
+							<div class="letter-group">
+								<div class="form-group">
+									<label class="control-label" for="count_array">Длинна массива:</label>
+									<input id="count_array" class="form-control" type="number" name="count_array" required  placeholder="Длинна"  value="6" min="1" max="100" step="1">	
+							
 
-						<button type="submit" value="send" class="btn btn-success">Рассчитать</button>
+
+								<label class="control-label" for="count-letter">Количество букв в слове:</label>
+								<input id="count-letter" class="form-control" type="number" name="count-letter" required  placeholder="десятичных знаков" value="1" min="1" max="10" step="1">
+
+									</div>	
+								
+							</div>			
+						</div>	
+
+						
+						<br>
+						
+
+						<br>
+						<button type="submit" value="send" class="btn btn-success">Выполнить</button>
 						<br><br>
-
-						<!-- <div class="form-group course-group">			 
-							<label class="control-label" for="course-curr">Курс:</label>
-							<input id="course-curr" class="form-control" type="number" name="val_ua" disabled required placeholder="Курс">
-						</div> -->
 
 					</form>
 					
@@ -53,19 +77,53 @@
 					<br>
 					<div id="result2"></div>
 					<br>
-
+					
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<script>
-		$('#course-curr').val('<?php echo $course_curr; ?>');
+
+		var count_array = $("#count_array").val();
+
+		$(function() {
+			$('#btn-mas').on('click', function() {
+
+				count_mas = prompt("Введите длинну массива");
+
+				$('#count_array').val(count_mas);
+
+				var arr = new Array();
+				for (i = 0; i < count_mas; i++)
+					arr[i] = prompt("Введите " + (i + 1) + "-ое слово");
+
+				var mas ='';
+				for (i = 0; i < arr.length; i++)
+					mas= mas + String(arr[i]) + '\,';
+
+				$('#mas').html('<b>   Массив: </b>' + mas);
+
+				// console.log(mas);
+
+			})
+		})
+
+			
+
+
+		$(function() {
+			$('#auto-word').on('change', function() {
+				$('.letter-group').toggle();
+				//$('#mas').html('');
+				$('.mas-group').toggle();
+			})
+		});
+
 
 		$(function() {
 			$('#name_val').on('change', function() {
 				var name_val = $('#name_val').val();
-
 
 				$('#result').html(''); 
 				$('#result2').html(''); 
@@ -74,18 +132,42 @@
 			})
 		});
 
-		$("#form").submit(function(e) {
-			// var name_val = $("#name_val").val();
-			// var course_curr = $("#course-curr").val();
-			var count_array = $("#count_array").val();
-			// console.log(count_array);
 
-			// $('.course-group').css('display','block');
+		// $(function() {
+		// 	autoword = 0;
+		// 	$('#auto-word').on('change', function() {
+		// 		autoword = !autoword;
+		// 		console.log(autoword);
+		// 	})
+		// });
+
+		$("#form").submit(function(e) {
+
+			if ($("#auto-word").is(':checked')) {
+				autoword = 1;
+			}
+			else {
+				autoword = 0;
+			}
+			var task = $("#task").val();
+			
+
+			var mas = $("#mas").html();
+			var count_letter = $("#count-letter").val();
+			var count_array  = $("#count_array").val();
+			console.log(autoword);
+			
 
 			$.ajax({
 				type: "POST",
 				url: "return_array.php",
-				data:{count_array: count_array},
+				data:{count_array: count_array,
+					task:task,
+					mas:mas,
+					count_letter:count_letter,
+					autoword:autoword
+
+				},
 				dataType: 'json',
 					error: function(data) {
 						$('#result').html('<p class="text-error" style="color:#f5345f">Ошибка чтения!</p>'); 
@@ -93,8 +175,8 @@
 					success: function(data) {
 						// $('#course-curr').val(data.kurs);
  
-						$('#result2').html('<b>Многомерный массив с количеством: </b> <pre>' + data.print_array + '</pre>');
-						$('#result3').html('<b>Массив: </b> <pre>' + data.array_s + '</pre>');
+						$('#result2').html('<b>Массив с результатом: </b> <pre>' + data.print_result + '</pre>');
+						$('#result3').html('<b>Массив: </b> <pre>' + data.array_print + '</pre>');
 					}
 				});
 

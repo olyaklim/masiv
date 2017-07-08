@@ -125,28 +125,48 @@ $comment = ($is_sort) ? "отсортирован по возрастанию!" 
 
 		var count_array = $("#count_array").val();
 
+
+		$(function() {
+			$('#task').on('change', function() {
+
+				var task_val = $("#task").val();
+				if(task_val == 5) {
+					$('.mas-group').hide();
+					$('.option-group').hide();
+				}
+				else {
+					$('.mas-group').show();
+					$('.option-group').show();
+				}
+			})
+		});
+
+
 		$(function() {
 			$('#btn-mas').on('click', function() {
 
 				count_mas = prompt("Введите длинну массива");
 
-				$('#count_array').val(count_mas);
+				if(Number(count_mas) >= 3) {
 
-				var arr = new Array();
-				for (i = 0; i < count_mas; i++)
-					arr[i] = prompt("Введите " + (i + 1) + "-ое слово");
+					$('#count_array').val(count_mas);
 
-				var mas ='';
-				for (i = 0; i < arr.length; i++) {
-					mas= mas + String(arr[i]);
+					var arr = new Array();
+					for (i = 0; i < count_mas; i++)
+						arr[i] = prompt("Введите " + (i + 1) + "-ое слово");
 
-					if(i < arr.length-1){
-						mas = mas + '\,';
+					var mas ='';
+					for (i = 0; i < arr.length; i++) {
+						mas= mas + String(arr[i]);
+
+						if(i < arr.length-1){
+							mas = mas + '\,';
+						}
 					}
-				}
 
-				$('#mas').html(mas);
-				// console.log(mas);
+					$('#mas').html(mas);
+					// console.log(mas);
+				}
 
 			})
 		})
@@ -155,31 +175,23 @@ $comment = ($is_sort) ? "отсортирован по возрастанию!" 
 		$(function() {
 			$('#auto-word').on('change', function() {
 				$('.letter-group').toggle();
-				//$('#mas').html('');
 				$('.mas-group').toggle();
 			})
 		});
 
 
 		$(function() {
-			$('#name_val').on('change', function() {
-				var name_val = $('#name_val').val();
+			$('#task').on('change', function() {
 
 				$('#result').html(''); 
 				$('#result2').html(''); 
 				$('#result3').html(''); 
 				$('#result4').html(''); 
+				$('#comment').html(''); 
+
 			})
 		});
 
-
-		// $(function() {
-		// 	autoword = 0;
-		// 	$('#auto-word').on('change', function() {
-		// 		autoword = !autoword;
-		// 		console.log(autoword);
-		// 	})
-		// });
 
 		$("#form").submit(function(e) {
 

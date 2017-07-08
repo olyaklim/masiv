@@ -10,7 +10,42 @@
 <html>
 <body>
 
+<?php /*
 
+$my_array[] = 'ccc';
+$my_array[] = 'aaa';
+$my_array[] = 'bbb';
+
+$my_array_sort[] = 'aaa';
+$my_array_sort[] = 'bbb';
+$my_array_sort[] = 'ccc';
+
+
+
+ $is_sort = true;
+	 for($i=0; $i < count($my_array); $i++) {
+
+echo $my_array[$i];
+echo "<br>";
+echo $my_array_sort[$i];
+
+	 	if ($my_array[$i] !== $my_array_sort[$i]) {
+	 		$is_sort = false;
+	 		break;
+	 	}
+	 }
+
+	 echo "<hr>";
+echo $is_sort;
+
+echo '<pre>' . print_r($my_array, true) . '</pre>';
+	
+
+$comment = "ss";
+$comment = ($is_sort) ? "отсортирован по возрастанию!" : " не отсортирован!";
+	 echo $comment;
+ die();
+	*/ ?>
 
 	<div class="container">
 		<div class="row">
@@ -35,7 +70,7 @@
 						</div>	
 						<br><br>
 						<div class="form-group mas-group">
-							<span id="mas">word1,word2,word3,word3,word1,word1</span>
+							<b>   Массив: </b><span id="mas">word1,word2,word3,word3,word1,word1</span>
 							<a id="btn-mas" class="btn btn-primary">Перезаполнить массив</a>
 						</div>
 
@@ -48,7 +83,7 @@
 							<div class="letter-group">
 								<div class="form-group">
 									<label class="control-label" for="count_array">Длинна массива:</label>
-									<input id="count_array" class="form-control" type="number" name="count_array" required  placeholder="Длинна"  value="6" min="1" max="100" step="1">	
+									<input id="count_array" class="form-control" type="number" name="count_array" required  placeholder="Длинна"  value="6" min="3" max="100" step="1">	
 							
 
 
@@ -75,6 +110,7 @@
 					<br>
 					<div id="result"></div>
 					<br>
+					<div id="comment"></div>
 					<div id="result2"></div>
 					<br>
 					
@@ -99,17 +135,19 @@
 					arr[i] = prompt("Введите " + (i + 1) + "-ое слово");
 
 				var mas ='';
-				for (i = 0; i < arr.length; i++)
-					mas= mas + String(arr[i]) + '\,';
+				for (i = 0; i < arr.length; i++) {
+					mas= mas + String(arr[i]);
 
-				$('#mas').html('<b>   Массив: </b>' + mas);
+					if(i < arr.length-1){
+						mas = mas + '\,';
+					}
+				}
 
+				$('#mas').html(mas);
 				// console.log(mas);
 
 			})
 		})
-
-			
 
 
 		$(function() {
@@ -176,6 +214,7 @@
 						// $('#course-curr').val(data.kurs);
  
 						$('#result2').html('<b>Массив с результатом: </b> <pre>' + data.print_result + '</pre>');
+						$('#comment').html(' ' + data.comment);
 						$('#result3').html('<b>Массив: </b> <pre>' + data.array_print + '</pre>');
 					}
 				});
